@@ -38,7 +38,7 @@ def main():
         GPIO.cleanup()
 
 
-def callback_button(channel):
+def callback_button():
     print "Button press detected"
     do_something()
 
@@ -64,7 +64,7 @@ def toggle_led(state):
 
 def flash_led(num_flashes=2, delay=0.07):
     toggle_led(OFF)
-    while (num_flashes > 0):
+    while num_flashes > 0:
         toggle_led(ON)
         sleep(delay)
         toggle_led(OFF)
