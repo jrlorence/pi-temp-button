@@ -11,19 +11,19 @@ from time import sleep
 # Global static variables
 ON = 1
 OFF = 0
-in_pin = 19
+BUTTON_PIN = 19
 LED_PIN = 18
 
 
 def main():
 	# Setup board inputs, outputs, pins, etc
 	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(in_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+	GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 	GPIO.setup(LED_PIN,GPIO.OUT)
 	GPIO.output(LED_PIN,0)
 
 	# Setup the button-press interrupt 
-	GPIO.add_event_detect(in_pin, GPIO.RISING, callback=callback_button, bouncetime=300)
+	GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING, callback=callback_button, bouncetime=300)
 
 	# Wait for user button press input
 	print "Waiting for button press..."
@@ -46,7 +46,7 @@ def do_something():
 
 	# Do the meat of the work
 	toggle_led(ON)
-	sleep(10)
+	sleep(2)
 
 	# Flash LED to ack input is complete
 	flash_led()
