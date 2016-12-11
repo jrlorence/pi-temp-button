@@ -1,8 +1,11 @@
 #!/usr/bin/python
-###############################################
-# Author: J.R. Lorence <jrlorence@gmail.com>
-# Date:   12/11/2016
-###############################################
+############################################################
+# Author:  J.R. Lorence <jrlorence@users.noreply.github.com>
+# Created: 12/11/2016
+# Purpose: Collects the temperature every x minutes, 
+#          reports it to statsd, and gives the user a 
+#          button to mark when they feel cold
+############################################################
 
 # Required python modules
 import RPi.GPIO as GPIO
