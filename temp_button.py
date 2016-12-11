@@ -22,31 +22,31 @@ def main():
 	GPIO.setup(LED_PIN,GPIO.OUT)
 	GPIO.output(LED_PIN,0)
 
-	# Wait for user button press input
-	try:
-		last_state = 0
-		while True:
-			button_pressed = GPIO.input(in_pin)
-	
-			# smooth button debounce and long presses
-			if button_pressed and not last_state:
-				print "Button pressed"
-				do_something()
-				# deal with button debounce
-				sleep(0.3)
-	
-			last_state = button_pressed
+	# Setup the button-press interrupt 
+	GPIO.add_event_detect(in_pin, GPIO.RISING, callback=callback_button, bouncetime=300)
 
+	# Wait for user button press input
+	print "Waiting for button press..."
+	try:
+		while True:
+			sleep(10)
+			print "Still waiting for button presses..."
 	finally:
 		GPIO.cleanup()
 
+def callback_button(channel):
+	print "Button press detected"
+	do_something()
+
 def do_something():
+
 	# Flash LED to ack user input
+	print "Doing something..."
 	flash_led()
 
 	# Do the meat of the work
 	toggle_led(ON)
-	sleep(2)
+	sleep(10)
 
 	# Flash LED to ack input is complete
 	flash_led()
