@@ -38,7 +38,7 @@ def main():
         GPIO.cleanup()
 
 
-def callback_button():
+def callback_button(channel):
     print "Button press detected"
     do_something()
 
