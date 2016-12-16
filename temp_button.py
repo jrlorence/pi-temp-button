@@ -9,6 +9,7 @@
 
 # Required python modules
 import RPi.GPIO as GPIO
+import Adafruit_DHT
 from time import sleep
 
 # Global static variables
@@ -16,6 +17,7 @@ ON = 1
 OFF = 0
 BUTTON_PIN = 19
 LED_PIN = 18
+SENSOR_PIN = 6
 
 
 def main():
@@ -29,11 +31,12 @@ def main():
     GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING, callback=callback_button, bouncetime=300)
 
     # Wait for user button press input
-    print "Waiting for button press..."
+    print "Started monitoring. Waiting for button or time trigger..."
     try:
         while True:
             sleep(10)
-            print "Still waiting for button presses..."
+            print "Triggering auto-report..."
+            get_temperature_stats()
     finally:
         GPIO.cleanup()
 
@@ -50,13 +53,22 @@ def do_something():
 
     # Do the meat of the work
     toggle_led(ON)
-    sleep(2)
+    get_temperature_stats()
 
     # Flash LED to ack input is complete
+    print "Did something"
     flash_led()
     toggle_led(OFF)
-    print "Did something"
 
+def get_temperature_stats():
+    # 11 for the model DHT11 
+    humidity, temperature = Adafruit_DHT.read_retry(11, SENSOR_PIN)
+    if humidity and temperature:
+        # convert C to F
+        temperature = (temperature * 9/5.0) + 32
+        print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
+    else:
+        print('Failed to get reading. Try again!')
 
 def toggle_led(state):
     GPIO.output(LED_PIN, state)
