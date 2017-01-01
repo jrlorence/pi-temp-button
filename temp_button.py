@@ -18,6 +18,9 @@ from time import sleep
 #                          USER SETTINGS                               #
 ########################################################################
 
+# The amount of time in seconds to wait before auto-reporting temperature
+reporting_interval = 10
+
 # DHT Model number, used by Adafruit_DHT
 # Options:
 #   * 11 = DHT11
@@ -63,7 +66,7 @@ def main():
     print "Started monitoring. Waiting for button or time trigger..."
     try:
         while True:
-            sleep(10)
+            sleep(reporting_interval)
             print "Triggering auto-report..."
             get_temperature_stats()
     finally:
