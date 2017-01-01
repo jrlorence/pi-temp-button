@@ -1,23 +1,31 @@
 #!/usr/bin/python
-############################################################
-# Author:  J.R. Lorence <jrlorence@users.noreply.github.com>
-# Created: 12/11/2016
-# Purpose: Collects the temperature every x minutes, 
-#          reports it to statsd, and gives the user a 
-#          button to mark when they feel cold
-############################################################
+########################################################################
+# Author:  J.R. Lorence <jrlorence@users.noreply.github.com>           #
+# Created: 12/11/2016                                                  #
+# Purpose: Collects the temperature every x minutes, reports it to     #
+#          statsd, and gives the user a button to mark when they       #
+#          feel cold.                                                  #
+########################################################################
 
-# Required python modules
+########################################################################
+#                        REQUIRED MODULES                              #
+########################################################################
 import RPi.GPIO as GPIO
 import Adafruit_DHT
 from time import sleep
 
-# Global static variables
+########################################################################
+#                     GLOBAL STATIC VARIABLES                          #
+########################################################################
 ON = 1
 OFF = 0
 BUTTON_PIN = 19
 LED_PIN = 18
 SENSOR_PIN = 6
+
+########################################################################
+#                         MAIN DRIVER                                  #
+########################################################################
 
 
 def main():
@@ -40,6 +48,10 @@ def main():
     finally:
         GPIO.cleanup()
 
+########################################################################
+#                         HELPER FUNCTIONS                             #
+########################################################################
+
 
 def callback_button(channel):
     print "Button press detected"
@@ -60,6 +72,7 @@ def do_something():
     flash_led()
     toggle_led(OFF)
 
+
 def get_temperature_stats():
     # 11 for the model DHT11 
     humidity, temperature = Adafruit_DHT.read_retry(11, SENSOR_PIN)
@@ -69,6 +82,7 @@ def get_temperature_stats():
         print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
     else:
         print('Failed to get reading. Try again!')
+
 
 def toggle_led(state):
     GPIO.output(LED_PIN, state)
@@ -83,6 +97,10 @@ def flash_led(num_flashes=2, delay=0.07):
         sleep(delay)
         num_flashes -= 1
     toggle_led(OFF)
+
+########################################################################
+#                         DEFAULT TO MAIN                              #
+########################################################################
 
 
 if __name__ == "__main__":
