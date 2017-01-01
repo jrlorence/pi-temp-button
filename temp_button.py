@@ -28,8 +28,12 @@ model_number = 11
 ########################################################################
 #                     GLOBAL STATIC VARIABLES                          #
 ########################################################################
+
+# States for easy pin/LED output control
 ON = 1
 OFF = 0
+
+# Location of various hardware pieces
 BUTTON_PIN = 19
 LED_PIN = 18
 SENSOR_PIN = 6
