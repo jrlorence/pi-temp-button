@@ -39,7 +39,7 @@ def main():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(LED_PIN, GPIO.OUT)
-    GPIO.output(LED_PIN, 0)
+    GPIO.output(LED_PIN, OFF)
 
     # Setup the button-press interrupt
     GPIO.add_event_detect(BUTTON_PIN, GPIO.RISING, callback=callback_button, bouncetime=300)
