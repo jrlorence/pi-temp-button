@@ -15,6 +15,17 @@ import Adafruit_DHT
 from time import sleep
 
 ########################################################################
+#                          USER SETTINGS                               #
+########################################################################
+
+# DHT Model number, used by Adafruit_DHT
+# Options:
+#   * 11 = DHT11
+#   * 22 = DHT22
+#   * 2302 = AM2302
+model_number = 11
+
+########################################################################
 #                     GLOBAL STATIC VARIABLES                          #
 ########################################################################
 ON = 1
@@ -81,7 +92,7 @@ def do_something():
 
 def get_temperature_stats():
     # 11 for the model DHT11 
-    humidity, temperature = Adafruit_DHT.read_retry(11, SENSOR_PIN)
+    humidity, temperature = Adafruit_DHT.read_retry(model_number, SENSOR_PIN)
     if humidity and temperature:
         # convert C to F
         temperature = (temperature * 9/5.0) + 32
