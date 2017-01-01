@@ -88,17 +88,17 @@ def do_something():
     flash_led()
 
     # Do the meat of the work
-    toggle_led(ON)
+    set_led(ON)
     get_temperature_stats()
 
     # Flash LED to ack input is complete
     print "Did something"
     flash_led()
-    toggle_led(OFF)
+    set_led(OFF)
 
 
 def get_temperature_stats():
-    # 11 for the model DHT11 
+    # Grab the temperature stats from the hardware device
     humidity, temperature = Adafruit_DHT.read_retry(model_number, SENSOR_PIN)
     if humidity and temperature:
         # convert C to F
@@ -108,19 +108,24 @@ def get_temperature_stats():
         print('Failed to get reading. Try again!')
 
 
-def toggle_led(state):
+def set_led(state=OFF):
+    """Turn the LED ON or OFF
+
+    Params:
+        state = ON or OFF (Default: OFF)
+    """
     GPIO.output(LED_PIN, state)
 
 
 def flash_led(num_flashes=2, delay=0.07):
-    toggle_led(OFF)
+    set_led(OFF)
     while num_flashes > 0:
-        toggle_led(ON)
+        set_led(ON)
         sleep(delay)
-        toggle_led(OFF)
+        set_led(OFF)
         sleep(delay)
         num_flashes -= 1
-    toggle_led(OFF)
+    set_led(OFF)
 
 ########################################################################
 #                         DEFAULT TO MAIN                              #
