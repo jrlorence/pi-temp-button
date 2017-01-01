@@ -29,6 +29,12 @@ SENSOR_PIN = 6
 
 
 def main():
+    """Start a loop, waiting for user input or time-based triggers.
+
+    Temperature reporting conditions:
+        * Users can trigger temp reporting via button
+        * A time-based trigger will report temp every X seconds
+    """
     # Setup board inputs, outputs, pins, etc
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
