@@ -78,11 +78,13 @@ def main():
 
 
 def callback_button(channel):
+    """Trigger on button press. Kick-off real work. """
     print "Button press detected"
     do_something()
 
 
 def do_something():
+    """TODO: Refactor function and add doc"""
     # Flash LED to ack user input
     print "Doing something..."
     flash_led()
@@ -98,6 +100,7 @@ def do_something():
 
 
 def get_temperature_stats():
+    """TODO: Refactor function and add doc"""
     # Grab the temperature stats from the hardware device
     humidity, temperature = Adafruit_DHT.read_retry(model_number, SENSOR_PIN)
     if humidity and temperature:
@@ -109,7 +112,7 @@ def get_temperature_stats():
 
 
 def set_led(state=OFF):
-    """Turn the LED ON or OFF
+    """Turn the LED ON or OFF.
 
     Params:
         state = ON or OFF (Default: OFF)
@@ -118,6 +121,15 @@ def set_led(state=OFF):
 
 
 def flash_led(num_flashes=2, delay=0.07):
+    """Flash the LED.
+
+    Used to acknowledged user action and report status, in lieu of an LCD.
+
+    Params:
+        num_flashes = Number of times to flash LED (Default: 2)
+        delay = Delay (in sec) between each LED state toggle (Default: 0.07)
+
+    """
     set_led(OFF)
     while num_flashes > 0:
         set_led(ON)
@@ -133,4 +145,5 @@ def flash_led(num_flashes=2, delay=0.07):
 
 
 if __name__ == "__main__":
+    # Trigger main() on launch to drive the program
     main()
